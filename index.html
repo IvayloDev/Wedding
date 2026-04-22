@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ани & Димитър · 25 април 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@200;300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6f0;
+    --cream-deep: #f2ebe0;
+    --sage: #a8b89a;
+    --sage-deep: #7d8f6f;
+    --rose: #d4a5a5;
+    --rose-soft: #ead6d1;
+    --terracotta: #c89187;
+    --ink: #3a3530;
+    --ink-soft: #6b625a;
+    --gold: #b8956a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Subtle paper grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.18 0 0 0 0 0.15 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: multiply;
+  }
+
+  /* ===== NAVIGATION ===== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1.75rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: rgba(250, 246, 240, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(168, 184, 154, 0.15);
+  }
+
+  .nav-monogram {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.75rem;
+    color: var(--sage-deep);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-weight: 300;
+    transition: color 0.4s ease;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--sage-deep);
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-links a:hover { color: var(--sage-deep); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem 4rem;
+    overflow: hidden;
+    background: radial-gradient(ellipse at top, var(--rose-soft) 0%, var(--cream) 45%, var(--cream-deep) 100%);
+  }
+
+  /* Floating botanical SVGs */
+  .botanical {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.55;
+    animation: sway 8s ease-in-out infinite;
+  }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(var(--rot, 0deg)) translateY(0); }
+    50% { transform: rotate(calc(var(--rot, 0deg) + 3deg)) translateY(-8px); }
+  }
+
+  .bot-1 { top: 8%; left: 4%; width: 180px; --rot: -15deg; animation-delay: 0s; }
+  .bot-2 { top: 12%; right: 6%; width: 220px; --rot: 25deg; animation-delay: 1.5s; }
+  .bot-3 { bottom: 10%; left: 8%; width: 200px; --rot: 45deg; animation-delay: 3s; }
+  .bot-4 { bottom: 8%; right: 5%; width: 160px; --rot: -30deg; animation-delay: 2s; }
+
+  .hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    animation: fadeUp 1.6s ease-out both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    animation: fadeUp 1.6s ease-out 0.2s both;
+  }
+
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: var(--sage);
+  }
+
+  .hero-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 11vw, 9rem);
+    font-weight: 300;
+    line-height: 0.95;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    animation: fadeUp 1.8s ease-out 0.4s both;
+  }
+
+  .hero-names .amp {
+    font-family: 'Great Vibes', cursive;
+    color: var(--terracotta);
+    font-size: 0.7em;
+    font-weight: 400;
+    display: inline-block;
+    margin: 0 0.15em;
+    transform: translateY(0.05em);
+  }
+
+  .hero-italic {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .hero-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--ink-soft);
+    margin-top: 2.5rem;
+    letter-spacing: 0.15em;
+    animation: fadeUp 1.6s ease-out 0.6s both;
+  }
+
+  .hero-location {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: var(--sage-deep);
+    animation: fadeUp 1.6s ease-out 0.7s both;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    margin-top: 2.5rem;
+    padding: 1.1rem 3rem;
+    background: var(--ink);
+    color: var(--cream);
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    transition: all 0.4s ease;
+    border: 1px solid var(--ink);
+    animation: fadeUp 1.6s ease-out 0.85s both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--terracotta);
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+    z-index: -1;
+  }
+
+  .hero-cta:hover {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+    letter-spacing: 0.45em;
+  }
+
+  .countdown {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    margin-top: 4rem;
+    animation: fadeUp 1.6s ease-out 0.9s both;
+  }
+
+  .count-block {
+    text-align: center;
+    min-width: 60px;
+  }
+
+  .count-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: var(--terracotta);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .count-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+
+  .count-divider {
+    width: 1px;
+    background: var(--sage);
+    opacity: 0.5;
+  }
+
+  /* ===== SCROLL INDICATOR ===== */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: center;
+    animation: bounce 2.5s ease-in-out infinite;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 30px;
+    background: var(--sage-deep);
+    margin: 0.75rem auto 0;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.7; }
+    50% { transform: translateX(-50%) translateY(8px); opacity: 1; }
+  }
+
+  /* ===== GALLERY SECTION ===== */
+  .gallery-section {
+    padding: 8rem 2rem 6rem;
+    position: relative;
+    background: var(--cream);
+  }
+
+  .gallery-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 5rem;
+  }
+
+  .section-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--sage-deep);
+  }
+
+  .section-sub {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+  }
+
+  /* Asymmetric masonry-style gallery */
+  .gallery {
+    max-width: 1300px;
+    margin: 0 auto;
+    columns: 3;
+    column-gap: 1.5rem;
+  }
+
+  @media (max-width: 900px) { .gallery { columns: 2; } }
+  @media (max-width: 560px) { .gallery { columns: 1; } }
+
+  .photo {
+    position: relative;
+    overflow: hidden;
+    background: var(--cream-deep);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    break-inside: avoid;
+    display: block;
+  }
+
+  .photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(58, 53, 48, 0.15));
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .photo:hover { transform: translateY(-6px); }
+  .photo:hover::before { opacity: 1; }
+
+  .photo img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .photo:hover img { transform: scale(1.05); }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    z-index: 3;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.5s ease;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  }
+
+  .photo:hover .photo-caption { opacity: 1; transform: translateY(0); }
+
+  /* Gallery loading / empty states */
+  .gallery-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.15rem;
+  }
+
+  .gallery-state .gallery-loading::after {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--sage);
+    margin-left: 0.75rem;
+    animation: pulse 1.4s ease-in-out infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  .gallery-empty-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    opacity: 0.4;
+  }
+
+  /* ===== UPLOAD SECTION ===== */
+  .upload-section {
+    padding: 7rem 2rem 7rem;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--rose-soft) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .upload-section::before,
+  .upload-section::after {
+    content: '';
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%237d8f6f' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M100 180 Q95 140 100 100 Q105 60 100 20'/%3E%3Cellipse cx='80' cy='150' rx='12' ry='5' transform='rotate(-30 80 150)' fill='%23a8b89a' stroke='none' opacity='0.85'/%3E%3Cellipse cx='120' cy='135' rx='14' ry='6' transform='rotate(35 120 135)' fill='%23a8b89a' stroke='none' opacity='0.85'/%3E%3Cellipse cx='78' cy='110' rx='13' ry='5' transform='rotate(-25 78 110)' fill='%237d8f6f' stroke='none' opacity='0.8'/%3E%3Cellipse cx='122' cy='95' rx='11' ry='5' transform='rotate(40 122 95)' fill='%23a8b89a' stroke='none' opacity='0.85'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .upload-section::before { top: 5%; left: -50px; transform: rotate(-25deg); }
+  .upload-section::after { bottom: 5%; right: -50px; transform: rotate(160deg); }
+
+  .upload-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .upload-header { text-align: center; margin-bottom: 3.5rem; }
+
+  .upload-card {
+    background: rgba(255, 252, 247, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(168, 184, 154, 0.3);
+    padding: 3rem 2.5rem;
+    box-shadow: 0 30px 80px -30px rgba(58, 53, 48, 0.2);
+  }
+
+  .name-field {
+    margin-bottom: 2rem;
+  }
+
+  .name-field label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    margin-bottom: 0.75rem;
+  }
+
+  .name-field input {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(168, 184, 154, 0.4);
+    background: rgba(255, 255, 255, 0.6);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--ink);
+    transition: border-color 0.3s ease, background 0.3s ease;
+    outline: none;
+  }
+
+  .name-field input:focus {
+    border-color: var(--sage-deep);
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .name-field input::placeholder {
+    color: var(--ink-soft);
+    opacity: 0.5;
+  }
+
+  .dropzone {
+    border: 2px dashed var(--sage);
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .dropzone:hover,
+  .dropzone.drag-over {
+    border-color: var(--terracotta);
+    background: rgba(234, 214, 209, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .dropzone-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1.25rem;
+    color: var(--sage-deep);
+  }
+
+  .dropzone-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .dropzone-sub {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  .dropzone-link {
+    color: var(--terracotta);
+    border-bottom: 1px solid var(--terracotta);
+    padding-bottom: 1px;
+  }
+
+  #fileInput { display: none; }
+
+  /* File queue */
+  .queue {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .queue-item {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(168, 184, 154, 0.25);
+    animation: fadeUp 0.4s ease-out;
+  }
+
+  .queue-thumb {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    background: var(--cream-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sage-deep);
+  }
+
+  .queue-info { min-width: 0; }
+
+  .queue-name {
+    font-size: 0.85rem;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .queue-meta {
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  .queue-progress-track {
+    height: 3px;
+    background: rgba(168, 184, 154, 0.2);
+    margin-top: 6px;
+    overflow: hidden;
+  }
+
+  .queue-progress-fill {
+    height: 100%;
+    background: var(--terracotta);
+    width: 0;
+    transition: width 0.3s ease;
+  }
+
+  .queue-status {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink-soft);
+    min-width: 80px;
+    text-align: right;
+  }
+
+  .queue-status.done { color: var(--sage-deep); }
+  .queue-status.error { color: #b8716a; }
+  .queue-item.done .queue-progress-fill { background: var(--sage-deep); }
+
+  /* Submit button */
+  .upload-actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn-upload {
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    padding: 1.1rem 3.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-upload:hover:not(:disabled) {
+    background: var(--terracotta);
+    letter-spacing: 0.45em;
+  }
+
+  .btn-upload:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Success state */
+  .success-msg {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    background: rgba(168, 184, 154, 0.15);
+    border: 1px solid var(--sage);
+    display: none;
+  }
+
+  .success-msg.visible { display: block; animation: fadeUp 0.6s ease-out; }
+
+  .success-msg h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    color: var(--sage-deep);
+    margin-bottom: 0.5rem;
+  }
+
+  .success-msg p {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 5rem 2rem 3rem;
+    text-align: center;
+    background: linear-gradient(to bottom, var(--cream), var(--cream-deep));
+    position: relative;
+  }
+
+  .footer-monogram {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    color: var(--sage-deep);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .footer-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.1rem;
+  }
+
+  .footer-divider {
+    width: 80px;
+    height: 1px;
+    background: var(--sage);
+    margin: 2rem auto;
+  }
+
+  .footer-meta {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* Responsive nav */
+  @media (max-width: 640px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    .nav-links a { font-size: 0.65rem; letter-spacing: 0.2em; }
+    .countdown { gap: 1.25rem; }
+    .count-num { font-size: 1.75rem; }
+    .bot-1, .bot-2, .bot-3, .bot-4 { width: 100px; opacity: 0.35; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Botanical SVG (reusable, drawn inline) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="branch" viewBox="0 0 200 200">
+      <g fill="none" stroke="#7d8f6f" stroke-width="1.2" stroke-linecap="round">
+        <path d="M100 180 Q95 140 100 100 Q105 60 100 20"/>
+        <!-- leaves -->
+        <ellipse cx="80" cy="150" rx="12" ry="5" transform="rotate(-30 80 150)" fill="#a8b89a" stroke="none" opacity="0.85"/>
+        <ellipse cx="120" cy="135" rx="14" ry="6" transform="rotate(35 120 135)" fill="#a8b89a" stroke="none" opacity="0.85"/>
+        <ellipse cx="78" cy="110" rx="13" ry="5" transform="rotate(-25 78 110)" fill="#7d8f6f" stroke="none" opacity="0.8"/>
+        <ellipse cx="122" cy="95" rx="11" ry="5" transform="rotate(40 122 95)" fill="#a8b89a" stroke="none" opacity="0.85"/>
+        <ellipse cx="82" cy="70" rx="10" ry="4" transform="rotate(-35 82 70)" fill="#7d8f6f" stroke="none" opacity="0.75"/>
+        <ellipse cx="118" cy="55" rx="12" ry="5" transform="rotate(30 118 55)" fill="#a8b89a" stroke="none" opacity="0.85"/>
+        <!-- small flowers -->
+        <circle cx="100" cy="30" r="4" fill="#d4a5a5"/>
+        <circle cx="103" cy="27" r="3" fill="#ead6d1"/>
+        <circle cx="97" cy="33" r="3" fill="#ead6d1"/>
+      </g>
+    </symbol>
+    <symbol id="rose-sprig" viewBox="0 0 200 200">
+      <g>
+        <path d="M100 180 Q98 130 105 90 Q112 50 100 20" fill="none" stroke="#7d8f6f" stroke-width="1.2" stroke-linecap="round"/>
+        <ellipse cx="75" cy="140" rx="15" ry="6" transform="rotate(-25 75 140)" fill="#a8b89a" opacity="0.85"/>
+        <ellipse cx="130" cy="120" rx="16" ry="7" transform="rotate(40 130 120)" fill="#7d8f6f" opacity="0.8"/>
+        <ellipse cx="80" cy="95" rx="14" ry="6" transform="rotate(-30 80 95)" fill="#a8b89a" opacity="0.85"/>
+        <!-- rose blooms -->
+        <g transform="translate(100 35)">
+          <circle r="14" fill="#d4a5a5"/>
+          <circle r="10" fill="#c89187"/>
+          <circle r="6" fill="#ead6d1"/>
+          <circle r="2.5" fill="#b8716a"/>
+        </g>
+        <g transform="translate(125 65)">
+          <circle r="9" fill="#ead6d1"/>
+          <circle r="6" fill="#d4a5a5"/>
+          <circle r="2" fill="#c89187"/>
+        </g>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<nav>
+  <div class="nav-monogram">А &amp; Д</div>
+  <ul class="nav-links">
+    <li><a href="#home">Начало</a></li>
+    <li><a href="#gallery">Галерия</a></li>
+    <li><a href="#share">Споделете</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <svg class="botanical bot-1"><use href="#rose-sprig"/></svg>
+  <svg class="botanical bot-2"><use href="#branch"/></svg>
+  <svg class="botanical bot-3"><use href="#branch"/></svg>
+  <svg class="botanical bot-4"><use href="#rose-sprig"/></svg>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Ние се женим</div>
+    <h1 class="hero-names">
+      Ани <span class="amp">&amp;</span> <span class="hero-italic">Димитър</span>
+    </h1>
+    <p class="hero-date">— Събота, двадесет и пети април —</p>
+    <p class="hero-location">Две хиляди двадесет и шеста</p>
+
+    <a href="#share" class="hero-cta">Качи снимки</a>
+
+    <div class="countdown">
+      <div class="count-block">
+        <div class="count-num" id="days">144</div>
+        <div class="count-label">Дни</div>
+      </div>
+      <div class="count-divider"></div>
+      <div class="count-block">
+        <div class="count-num" id="hours">06</div>
+        <div class="count-label">Часа</div>
+      </div>
+      <div class="count-divider"></div>
+      <div class="count-block">
+        <div class="count-num" id="minutes">23</div>
+        <div class="count-label">Минути</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Нашата история в снимки</div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-header">
+    <div class="section-eyebrow">Моменти</div>
+    <h2 class="section-title">Няколко от <em>любимите ни</em></h2>
+  </div>
+
+  <div class="gallery-state" id="galleryState">
+    <div class="gallery-loading">Зареждане на снимки…</div>
+  </div>
+
+  <div class="gallery" id="galleryGrid"></div>
+</section>
+
+<!-- ===== UPLOAD ===== -->
+<section class="upload-section" id="share">
+  <div class="upload-wrapper">
+    <div class="upload-header">
+      <div class="section-eyebrow">Споделете с нас</div>
+      <h2 class="section-title">Вашите <em>моменти</em>, нашите спомени</h2>
+      <p class="section-sub">Ако сте уловили нещо красиво, изпратете ни го.</p>
+    </div>
+
+    <div class="upload-card">
+      <div class="name-field">
+        <label for="guestName">Вашето име</label>
+        <input type="text" id="guestName" placeholder="За да знаем на кого да благодарим…" maxlength="80" required>
+      </div>
+
+      <div class="dropzone" id="dropzone">
+        <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M12 16V4M12 4l-5 5M12 4l5 5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 14v4a2 2 0 002 2h12a2 2 0 002-2v-4" stroke-linecap="round"/>
+        </svg>
+        <div class="dropzone-title">Пуснете снимки и видеа тук</div>
+        <div class="dropzone-sub">или <span class="dropzone-link">изберете от устройството си</span></div>
+        <input type="file" id="fileInput" accept="image/*,video/*" multiple>
+      </div>
+
+      <div class="queue" id="queue"></div>
+
+      <div class="upload-actions" id="actions" style="display:none">
+        <button class="btn-upload" id="uploadBtn">Изпрати</button>
+      </div>
+
+      <div class="success-msg" id="successMsg">
+        <h3>Благодарим ви</h3>
+        <p>Вашите спомени са в безопасност при нас. <span id="successCount"></span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="footer-monogram">А &amp; Д</div>
+  <p class="footer-text">Нямаме търпение да празнуваме с вас.</p>
+  <div class="footer-divider"></div>
+  <p class="footer-meta">25 · 04 · 2026</p>
+</footer>
+
+<script>
+  // Live countdown to April 25, 2026
+  const wedding = new Date('2026-04-25T16:00:00').getTime();
+
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = wedding - now;
+    if (diff < 0) return;
+
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
+
+  // ===== GALLERY (loads from Google Drive via Apps Script) =====
+  async function loadGallery() {
+    const stateEl = document.getElementById('galleryState');
+    const gridEl = document.getElementById('galleryGrid');
+
+    try {
+      // Cache-bust so guests see fresh photos right after uploading
+      const res = await fetch(`${UPLOAD_URL}?action=list&t=${Date.now()}`);
+      const data = await res.json();
+
+      if (!data.success) throw new Error(data.error || 'Failed to load gallery');
+
+      if (data.images.length === 0) {
+        stateEl.innerHTML = `
+          <svg class="gallery-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <div>Все още няма качени снимки.<br>Бъдете първите!</div>`;
+        gridEl.style.display = 'none';
+        return;
+      }
+
+      stateEl.style.display = 'none';
+      gridEl.innerHTML = data.images.map(img => `
+        <div class="photo">
+          <img src="${img.thumbnail}" alt="" loading="lazy"
+               onerror="this.parentElement.style.display='none'">
+          <div class="photo-caption">${escapeHTML(img.guest)}</div>
+        </div>
+      `).join('');
+    } catch (err) {
+      console.error('Gallery load failed:', err);
+      stateEl.innerHTML = `<div>Галерията временно не е достъпна.</div>`;
+      gridEl.style.display = 'none';
+    }
+  }
+
+  // Run after the rest of the script defines escapeHTML
+  // (called at bottom of script)
+
+  // ===== UPLOAD LOGIC =====
+  // ⚠️ Paste your Google Apps Script Web App URL here after deploying
+  const UPLOAD_URL = 'https://script.google.com/macros/s/AKfycbxU40MMSiej45XMmBTPOmVu6QjL7U0IS6Gw5MKjNJVwkMdxQcNMOJJI2FcOl22IcgRkXg/exec';
+
+  const MAX_IMAGE_DIMENSION = 2400; // Resize images larger than this
+  const MAX_VIDEO_MB = 50;          // Apps Script per-request limit
+
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const queueEl = document.getElementById('queue');
+  const actionsEl = document.getElementById('actions');
+  const uploadBtn = document.getElementById('uploadBtn');
+  const successMsg = document.getElementById('successMsg');
+  const guestNameInput = document.getElementById('guestName');
+
+  let queue = []; // {file, id, status}
+
+  // Click → open file picker
+  dropzone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', (e) => addFiles(e.target.files));
+
+  // Drag & drop
+  ['dragenter', 'dragover'].forEach(ev => {
+    dropzone.addEventListener(ev, (e) => {
+      e.preventDefault();
+      dropzone.classList.add('drag-over');
+    });
+  });
+  ['dragleave', 'drop'].forEach(ev => {
+    dropzone.addEventListener(ev, (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('drag-over');
+    });
+  });
+  dropzone.addEventListener('drop', (e) => addFiles(e.dataTransfer.files));
+
+  function addFiles(fileList) {
+    Array.from(fileList).forEach(file => {
+      const isImage = file.type.startsWith('image/');
+      const isVideo = file.type.startsWith('video/');
+      if (!isImage && !isVideo) return;
+
+      // Reject oversized videos upfront (we can't compress those client-side easily)
+      if (isVideo && file.size > MAX_VIDEO_MB * 1024 * 1024) {
+        alert(`„${file.name}" е твърде голям файл (над ${MAX_VIDEO_MB}MB). Моля, изпратете оригинала отделно.`);
+        return;
+      }
+
+      const id = 'q' + Date.now() + Math.random().toString(36).slice(2, 7);
+      queue.push({ file, id, status: 'pending' });
+      renderQueueItem(file, id);
+    });
+
+    if (queue.length > 0) actionsEl.style.display = 'flex';
+  }
+
+  function renderQueueItem(file, id) {
+    const item = document.createElement('div');
+    item.className = 'queue-item';
+    item.dataset.id = id;
+
+    const sizeMB = (file.size / 1024 / 1024).toFixed(1);
+    const isImage = file.type.startsWith('image/');
+
+    item.innerHTML = `
+      <div class="queue-thumb" data-thumb></div>
+      <div class="queue-info">
+        <div class="queue-name">${escapeHTML(file.name)}</div>
+        <div class="queue-meta">${sizeMB} MB · ${isImage ? 'Снимка' : 'Видео'}</div>
+        <div class="queue-progress-track"><div class="queue-progress-fill"></div></div>
+      </div>
+      <div class="queue-status">Готов</div>
+    `;
+    queueEl.appendChild(item);
+
+    // Thumbnail preview for images
+    if (isImage) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const thumb = item.querySelector('[data-thumb]');
+        thumb.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      item.querySelector('[data-thumb]').innerHTML = `
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>`;
+    }
+  }
+
+  // Compress an image client-side (resize + re-encode to JPEG)
+  async function compressImage(file) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > MAX_IMAGE_DIMENSION || height > MAX_IMAGE_DIMENSION) {
+          const scale = MAX_IMAGE_DIMENSION / Math.max(width, height);
+          width = Math.round(width * scale);
+          height = Math.round(height * scale);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        canvas.toBlob((blob) => {
+          URL.revokeObjectURL(url);
+          if (!blob) return reject(new Error('Compression failed'));
+          resolve(blob);
+        }, 'image/jpeg', 0.88);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Image load failed')); };
+      img.src = url;
+    });
+  }
+
+  // Convert blob to base64 (without the data:...;base64, prefix)
+  function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  async function uploadOne(item, guestName) {
+    const itemEl = queueEl.querySelector(`[data-id="${item.id}"]`);
+    const statusEl = itemEl.querySelector('.queue-status');
+    const fillEl = itemEl.querySelector('.queue-progress-fill');
+
+    statusEl.textContent = 'Подготовка';
+    fillEl.style.width = '15%';
+
+    try {
+      let payloadBlob = item.file;
+      let fileName = item.file.name;
+      let mimeType = item.file.type;
+
+      // Try to compress images; if the browser can't decode the format
+      // (e.g. HEIC from iPhone), fall back to uploading the original.
+      if (item.file.type.startsWith('image/')) {
+        try {
+          payloadBlob = await compressImage(item.file);
+          fileName = fileName.replace(/\.(heic|heif|png|webp)$/i, '.jpg');
+          if (!/\.(jpg|jpeg)$/i.test(fileName)) fileName += '.jpg';
+          mimeType = 'image/jpeg';
+        } catch (compressErr) {
+          console.warn(`Compression failed for ${item.file.name}, uploading original:`, compressErr);
+          // Reject huge originals we can't compress (would blow Apps Script limit)
+          if (item.file.size > MAX_VIDEO_MB * 1024 * 1024) {
+            throw new Error(`Файлът е твърде голям за качване без компресия (${(item.file.size/1024/1024).toFixed(1)}MB). Моля, конвертирайте го в JPEG.`);
+          }
+          payloadBlob = item.file;
+          mimeType = item.file.type || 'application/octet-stream';
+        }
+      }
+
+      fillEl.style.width = '40%';
+      statusEl.textContent = 'Качване';
+
+      const base64 = await blobToBase64(payloadBlob);
+
+      fillEl.style.width = '70%';
+
+      const res = await fetch(UPLOAD_URL, {
+        method: 'POST',
+        // Apps Script web apps reject custom Content-Type from browsers (CORS preflight).
+        // Sending as text/plain avoids the preflight; the backend parses JSON manually.
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ guestName, fileName, mimeType, fileData: base64 })
+      });
+
+      const result = await res.json();
+      if (!result.success) throw new Error(result.error || 'Upload failed');
+
+      fillEl.style.width = '100%';
+      statusEl.textContent = 'Изпратено';
+      statusEl.classList.add('done');
+      itemEl.classList.add('done');
+      item.status = 'done';
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = 'Грешка';
+      statusEl.classList.add('error');
+      fillEl.style.width = '100%';
+      fillEl.style.background = '#b8716a';
+      item.status = 'error';
+    }
+  }
+
+  uploadBtn.addEventListener('click', async () => {
+    const guestName = guestNameInput.value.trim();
+    if (!guestName) {
+      guestNameInput.focus();
+      guestNameInput.style.borderColor = '#b8716a';
+      return;
+    }
+    guestNameInput.style.borderColor = '';
+
+    const pending = queue.filter(q => q.status === 'pending');
+    if (pending.length === 0) return;
+
+    uploadBtn.disabled = true;
+    uploadBtn.textContent = 'Изпращане…';
+
+    // Upload sequentially — gentler on Apps Script and on slow connections
+    for (const item of pending) {
+      await uploadOne(item, guestName);
+    }
+
+    const sentCount = queue.filter(q => q.status === 'done').length;
+    const failedCount = queue.filter(q => q.status === 'error').length;
+
+    document.getElementById('successCount').textContent =
+      failedCount > 0
+        ? `${sentCount} успешно, ${failedCount} с грешка — моля, опитайте отново.`
+        : `(${sentCount} ${sentCount === 1 ? 'спомен' : 'спомена'})`;
+    successMsg.classList.add('visible');
+
+    uploadBtn.disabled = false;
+    uploadBtn.textContent = 'Изпрати още';
+    queue = queue.filter(q => q.status !== 'done');
+    if (queue.length === 0) actionsEl.style.display = 'none';
+
+    // Refresh gallery so the new photos show up immediately
+    if (sentCount > 0) loadGallery();
+  });
+
+  function escapeHTML(s) {
+    return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+  }
+
+  // Kick off the gallery load
+  loadGallery();
+
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    document.querySelectorAll('.botanical').forEach((el, i) => {
+      const factor = (i % 2 === 0) ? 1 : -1;
+      el.style.transform += ` translate(${x * factor * 0.3}px, ${y * factor * 0.3}px)`;
+    });
+  });
+</script>
+
+</body>
+</html>
