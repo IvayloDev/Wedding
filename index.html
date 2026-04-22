@@ -568,78 +568,133 @@
 
   #fileInput { display: none; }
 
-  /* File queue */
+  /* Overall progress bar (shown during upload) */
+  .progress-overall {
+    margin-top: 1.75rem;
+    display: none;
+  }
+
+  .progress-overall.visible { display: block; animation: fadeUp 0.4s ease-out; }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.75rem;
+  }
+
+  .progress-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink);
+  }
+
+  .progress-percent {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress-track {
+    height: 4px;
+    background: rgba(168, 184, 154, 0.2);
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--rose), var(--terracotta));
+    width: 0;
+    transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .progress-fill.done {
+    background: var(--sage-deep);
+  }
+
+  .progress-current {
+    margin-top: 0.6rem;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+    height: 1em;
+  }
+
+  /* Compact file queue — pills instead of full rows */
   .queue {
     margin-top: 1.75rem;
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .queue-item {
-    display: grid;
-    grid-template-columns: 48px 1fr auto;
-    gap: 1rem;
+    display: inline-flex;
     align-items: center;
-    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+    padding: 0.45rem 0.85rem;
     background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(168, 184, 154, 0.25);
-    animation: fadeUp 0.4s ease-out;
+    border: 1px solid rgba(168, 184, 154, 0.3);
+    font-size: 0.75rem;
+    color: var(--ink);
+    max-width: 100%;
+    animation: fadeUp 0.3s ease-out;
+    transition: all 0.4s ease;
   }
 
-  .queue-thumb {
-    width: 48px;
-    height: 48px;
-    object-fit: cover;
-    background: var(--cream-deep);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--sage-deep);
+  .queue-item .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sage);
+    flex-shrink: 0;
+    transition: background 0.3s ease;
   }
 
-  .queue-info { min-width: 0; }
+  .queue-item.uploading .dot {
+    background: var(--terracotta);
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+
+  .queue-item.done {
+    opacity: 0.55;
+    border-color: rgba(125, 143, 111, 0.3);
+  }
+
+  .queue-item.done .dot { background: var(--sage-deep); }
+
+  .queue-item.error {
+    border-color: #d4a0a0;
+    background: rgba(212, 165, 165, 0.15);
+  }
+
+  .queue-item.error .dot { background: #b8716a; }
 
   .queue-name {
-    font-size: 0.85rem;
-    color: var(--ink);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 200px;
   }
 
-  .queue-meta {
-    font-size: 0.7rem;
+  .queue-remove {
+    background: none;
+    border: none;
     color: var(--ink-soft);
-    margin-top: 2px;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
   }
 
-  .queue-progress-track {
-    height: 3px;
-    background: rgba(168, 184, 154, 0.2);
-    margin-top: 6px;
-    overflow: hidden;
-  }
-
-  .queue-progress-fill {
-    height: 100%;
-    background: var(--terracotta);
-    width: 0;
-    transition: width 0.3s ease;
-  }
-
-  .queue-status {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--ink-soft);
-    min-width: 80px;
-    text-align: right;
-  }
-
-  .queue-status.done { color: var(--sage-deep); }
-  .queue-status.error { color: #b8716a; }
-  .queue-item.done .queue-progress-fill { background: var(--sage-deep); }
+  .queue-remove:hover { opacity: 1; color: var(--terracotta); }
+  .queue-item.uploading .queue-remove,
+  .queue-item.done .queue-remove { display: none; }
 
   /* Submit button */
   .upload-actions {
@@ -876,6 +931,17 @@
         <input type="file" id="fileInput" accept="image/*,video/*" multiple>
       </div>
 
+      <div class="progress-overall" id="progressOverall">
+        <div class="progress-header">
+          <div class="progress-label" id="progressLabel">Изпращане…</div>
+          <div class="progress-percent" id="progressPercent">0%</div>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-current" id="progressCurrent"></div>
+      </div>
+
       <div class="queue" id="queue"></div>
 
       <div class="upload-actions" id="actions" style="display:none">
@@ -1023,33 +1089,21 @@
     item.dataset.id = id;
 
     const sizeMB = (file.size / 1024 / 1024).toFixed(1);
-    const isImage = file.type.startsWith('image/');
 
     item.innerHTML = `
-      <div class="queue-thumb" data-thumb></div>
-      <div class="queue-info">
-        <div class="queue-name">${escapeHTML(file.name)}</div>
-        <div class="queue-meta">${sizeMB} MB · ${isImage ? 'Снимка' : 'Видео'}</div>
-        <div class="queue-progress-track"><div class="queue-progress-fill"></div></div>
-      </div>
-      <div class="queue-status">Готов</div>
+      <span class="dot"></span>
+      <span class="queue-name">${escapeHTML(file.name)}</span>
+      <span style="color: var(--ink-soft); font-size: 0.7rem;">${sizeMB}MB</span>
+      <button class="queue-remove" data-remove aria-label="Премахни">×</button>
     `;
     queueEl.appendChild(item);
 
-    // Thumbnail preview for images
-    if (isImage) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const thumb = item.querySelector('[data-thumb]');
-        thumb.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
-      };
-      reader.readAsDataURL(file);
-    } else {
-      item.querySelector('[data-thumb]').innerHTML = `
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <polygon points="5 3 19 12 5 21 5 3"/>
-        </svg>`;
-    }
+    // Remove button
+    item.querySelector('[data-remove]').addEventListener('click', () => {
+      queue = queue.filter(q => q.id !== id);
+      item.remove();
+      if (queue.length === 0) actionsEl.style.display = 'none';
+    });
   }
 
   // Compress an image client-side (resize + re-encode to JPEG)
@@ -1091,19 +1145,15 @@
 
   async function uploadOne(item, guestName) {
     const itemEl = queueEl.querySelector(`[data-id="${item.id}"]`);
-    const statusEl = itemEl.querySelector('.queue-status');
-    const fillEl = itemEl.querySelector('.queue-progress-fill');
-
-    statusEl.textContent = 'Подготовка';
-    fillEl.style.width = '15%';
+    itemEl.classList.remove('error');
+    itemEl.classList.add('uploading');
 
     try {
       let payloadBlob = item.file;
       let fileName = item.file.name;
       let mimeType = item.file.type;
 
-      // Try to compress images; if the browser can't decode the format
-      // (e.g. HEIC from iPhone), fall back to uploading the original.
+      // Try to compress images; fall back to original if browser can't decode
       if (item.file.type.startsWith('image/')) {
         try {
           payloadBlob = await compressImage(item.file);
@@ -1112,26 +1162,18 @@
           mimeType = 'image/jpeg';
         } catch (compressErr) {
           console.warn(`Compression failed for ${item.file.name}, uploading original:`, compressErr);
-          // Reject huge originals we can't compress (would blow Apps Script limit)
           if (item.file.size > MAX_VIDEO_MB * 1024 * 1024) {
-            throw new Error(`Файлът е твърде голям за качване без компресия (${(item.file.size/1024/1024).toFixed(1)}MB). Моля, конвертирайте го в JPEG.`);
+            throw new Error(`Файлът е твърде голям (${(item.file.size/1024/1024).toFixed(1)}MB).`);
           }
           payloadBlob = item.file;
           mimeType = item.file.type || 'application/octet-stream';
         }
       }
 
-      fillEl.style.width = '40%';
-      statusEl.textContent = 'Качване';
-
       const base64 = await blobToBase64(payloadBlob);
-
-      fillEl.style.width = '70%';
 
       const res = await fetch(UPLOAD_URL, {
         method: 'POST',
-        // Apps Script web apps reject custom Content-Type from browsers (CORS preflight).
-        // Sending as text/plain avoids the preflight; the backend parses JSON manually.
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ guestName, fileName, mimeType, fileData: base64 })
       });
@@ -1139,17 +1181,13 @@
       const result = await res.json();
       if (!result.success) throw new Error(result.error || 'Upload failed');
 
-      fillEl.style.width = '100%';
-      statusEl.textContent = 'Изпратено';
-      statusEl.classList.add('done');
+      itemEl.classList.remove('uploading');
       itemEl.classList.add('done');
       item.status = 'done';
     } catch (err) {
       console.error(err);
-      statusEl.textContent = 'Грешка';
-      statusEl.classList.add('error');
-      fillEl.style.width = '100%';
-      fillEl.style.background = '#b8716a';
+      itemEl.classList.remove('uploading');
+      itemEl.classList.add('error');
       item.status = 'error';
     }
   }
@@ -1169,24 +1207,59 @@
     uploadBtn.disabled = true;
     uploadBtn.textContent = 'Изпращане…';
 
-    // Upload sequentially — gentler on Apps Script and on slow connections
+    // Show overall progress bar
+    const progressEl = document.getElementById('progressOverall');
+    const fillEl = document.getElementById('progressFill');
+    const percentEl = document.getElementById('progressPercent');
+    const labelEl = document.getElementById('progressLabel');
+    const currentEl = document.getElementById('progressCurrent');
+
+    progressEl.classList.add('visible');
+    fillEl.classList.remove('done');
+
+    const total = pending.length;
+    let completed = 0;
+
+    // Upload sequentially — drives the overall bar
     for (const item of pending) {
+      currentEl.textContent = `${item.file.name}`;
+      labelEl.textContent = `Изпращане ${completed + 1} от ${total}`;
       await uploadOne(item, guestName);
+      completed++;
+      const pct = Math.round((completed / total) * 100);
+      fillEl.style.width = pct + '%';
+      percentEl.textContent = pct + '%';
     }
 
     const sentCount = queue.filter(q => q.status === 'done').length;
     const failedCount = queue.filter(q => q.status === 'error').length;
 
+    // Finalize bar
+    fillEl.classList.add('done');
+    labelEl.textContent = failedCount > 0 ? 'Приключено (с грешки)' : 'Готово';
+    currentEl.textContent = '';
+
     document.getElementById('successCount').textContent =
       failedCount > 0
-        ? `${sentCount} успешно, ${failedCount} с грешка — моля, опитайте отново.`
+        ? `${sentCount} успешно, ${failedCount} с грешка — опитайте отново.`
         : `(${sentCount} ${sentCount === 1 ? 'спомен' : 'спомена'})`;
     successMsg.classList.add('visible');
 
     uploadBtn.disabled = false;
     uploadBtn.textContent = 'Изпрати още';
+
+    // Keep failed items visible so guests can retry; remove the done ones
     queue = queue.filter(q => q.status !== 'done');
-    if (queue.length === 0) actionsEl.style.display = 'none';
+    queueEl.querySelectorAll('.queue-item.done').forEach(el => el.remove());
+
+    // Reset status so failed items can be retried on next click
+    queue.forEach(q => { if (q.status === 'error') q.status = 'pending'; });
+
+    // Hide the progress bar after a moment if everything succeeded
+    if (queue.length === 0) {
+      actionsEl.style.display = 'none';
+      setTimeout(() => progressEl.classList.remove('visible'), 2500);
+    }
 
     // Refresh gallery so the new photos show up immediately
     if (sentCount > 0) loadGallery();
